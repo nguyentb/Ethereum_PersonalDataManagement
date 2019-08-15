@@ -23,8 +23,8 @@
         <h2 class="text-center">Your Account Address:</h2>
         <hr/>    
       	<h3 id="accountAddress" class="text-center"></h3>
-        <hr/>
-        
+	<h3>IPFS NodeID: <span style="font-weight:normal" id="nodeId"></span></h3>
+        <hr/>        
       	<div>
       	<h2 class="text-center">Your Dataset information:</h2>
             <table class="table">
@@ -39,7 +39,15 @@
             </table>
             <hr/>
         </div>
-        
+	      
+	<div>
+	    <form id="useradd_form">
+                Upload a file to IPFS:<br>
+                <input type="file" id="useradd_file"><br>
+            </form>
+            <button type="button" id="useraddbutton">Add</button>
+        </div>
+	      
         <div id="uploadinfo" class="form-group" style="width: 650px;">
 			<form onSubmit="App.uploadData(); return false;">
 			  <div class="data-info">
