@@ -271,7 +271,8 @@ async function setup(){
   } else {
 	web3 = new Web3(new Web3.providers.HttpProvider("rinkeby.infura.io/v3/9450959fb7da4c1e9f880f577685d095"));
   }
-
+  //call the render function for initializing the webpage
+  render();
 }
 
 setup();
