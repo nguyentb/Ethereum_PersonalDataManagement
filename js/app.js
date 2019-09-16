@@ -1,6 +1,261 @@
+const abi = [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "blockHashNow",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "acl_keeper",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "acl_keeper_count",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "tokenlist",
+      "outputs": [
+        {
+          "name": "ownerID",
+          "type": "address"
+        },
+        {
+          "name": "tpID",
+          "type": "address"
+        },
+        {
+          "name": "permission",
+          "type": "uint256"
+        },
+        {
+          "name": "issued_at",
+          "type": "uint256"
+        },
+        {
+          "name": "expired_in",
+          "type": "uint256"
+        },
+        {
+          "name": "refresh_count",
+          "type": "uint256"
+        },
+        {
+          "name": "validity",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "blockNumber",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "auth_ledger",
+      "outputs": [
+        {
+          "name": "dataPointer",
+          "type": "string"
+        },
+        {
+          "name": "dataHash",
+          "type": "string"
+        },
+        {
+          "name": "flag",
+          "type": "uint8"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "aclists",
+      "outputs": [
+        {
+          "name": "permission",
+          "type": "uint8"
+        },
+        {
+          "name": "token",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_address",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_dataPointer",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "_dataHash",
+          "type": "string"
+        }
+      ],
+      "name": "uploadDataEvent",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "token",
+          "type": "bytes32"
+        }
+      ],
+      "name": "grantAccessEvent",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_dataPointer",
+          "type": "string"
+        },
+        {
+          "name": "_dataHash",
+          "type": "string"
+        }
+      ],
+      "name": "uploadData",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "name": "_thirdparty",
+          "type": "address"
+        },
+        {
+          "name": "_permission",
+          "type": "uint8"
+        }
+      ],
+      "name": "grantAccess",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ];
+
+
 App = {
   web3Provider: null,
-  contracts: {},
+  contracts: "0x9774A0A9A7CDbe862b231adA8887b4a0045A7894".toLowerCase(),
   account: '0x0',
 
   init: function() {
@@ -15,14 +270,14 @@ App = {
       web3 = new Web3(web3.currentProvider);
     } else {
       // Specify default instance if no web3 instance provided
-      App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+      App.web3Provider = new Web3.providers.HttpProvider('rinkeby.infura.io/v3/9450959fb7da4c1e9f880f577685d095');
       web3 = new Web3(App.web3Provider);
     }
     return App.initContract();
   },
 
   initContract: function() {
-    $.getJSON("Election.json", function(election) {
+    $.getJSON("DataManagement.json", function(election) {
       // Instantiate a new truffle contract from the artifact
       App.contracts.Election = TruffleContract(election);
       // Connect provider to interact with contract
