@@ -37,6 +37,7 @@ function uploadData() {
     
 }
 
+/*
 function render() {
     var account = web3.eth.defaultAccount;    
     // Load contract data
@@ -75,5 +76,5 @@ function render() {
       console.warn(error);
     });
 }
-
+*/
 
