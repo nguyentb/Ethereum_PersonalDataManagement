@@ -4,15 +4,6 @@ function uploadData() {
     var dhash = $('#dhash').val();
     var account = web3.eth.defaultAccount;
     
-    App.contracts.Election.deployed().then(function(instance) {
-      return instance.uploadData(App.account, dpointer, dhash);
-    }).then(function(result) {
- 
-    }).catch(function(err) {
-      console.error(err);
-    });
-    
-    
     web3.eth.getGasPrice((e, gasPrice) => {
       if (!e) {
         gasPrice = gasPrice.c[0];
