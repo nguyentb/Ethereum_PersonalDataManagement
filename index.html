@@ -1,213 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Personal Data Management System using Ethereum and IPFS</title>
-
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script src="https://unpkg.com/ipfs/dist/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.js"></script>
-    <script type="text/javascript" src="js/crypto.js"></script>
+    <title>Ethereum-based Personal Data Management</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <script type="text/javascript" src="ipfs/index.js"></script>
+    <script type="text/javascript" src="javascript/crypto.js"></script>
+    <style>
+    * {box-sizing: border-box;}.column {float: left; width: 50%; padding: 10px;}
+    .row:after {content: ""; display: table; clear: both;}
+    </style>
   </head>
-  <body>  
-    <div class="container" style="width: 650px;">
-      <div class="row">      
-        <h2 class="text-center">Your Account Address:</h2>
-        <hr/>    
-      	<h3 id="accountAddress" class="text-center"></h3>
-	<h3>IPFS NodeID: <span style="font-weight:normal" id="nodeId"></span></h3>
-        <hr/>        
-      	<div>
-      	<h2 class="text-center">Your Dataset information:</h2>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Flag</th>
-                  <th scope="col">Data Pointer</th>
-                  <th scope="col">Data Hash</th>
-                </tr>
-              </thead>
-              <tbody id="datainfo"></tbody>
-            </table>
-            <hr/>
-        </div>
-	      
-	<div>
-	    <form id="useradd_form">
-                Upload a file to IPFS:<br>
-                <input type="file" id="useradd_file"><br>
-            </form>
-            <button type="button" id="useraddbutton">Upload File...</button>
-        </div>
-	      
-        <div id="uploadinfo" class="form-group" style="width: 650px;">
-			<form onSubmit="App.uploadData(); return false;">
-			  <div class="data-info">
-				  <table class="table">
-				  <thead>
-				    <tr>
-				      <th scope="col">#</th>
-				      <th scope="col">Data Pointer</th>
-				      <th scope="col"><input type="text" id="dpointer"></th>
-				    </tr>
-				    <tr>
-				      <th scope="col">#</th>
-				      <th scope="col">Data Hash</th>              
-				      <th scope="col"><input type="text" id="dhash"></th>              
-				    </tr>
-				  </thead>
-				  </table>
-			  </div>
-			  <button type="submit" class="btn btn-primary">Upload Data</button>
-			  <hr />
-			</form>
-			
-			<!--Upload Form-->
-			<form>
-			  <table>
-				<tr>
-				  <td colspan="2">File Upload</td>
-				</tr>
-				<tr>
-				  <th>Select File </th>
-				  <td><input id="csv" name="csv" type="file" /></td>
-				</tr>
-				<tr>
-				  <td colspan="2">
-					<input type="submit" value="submit"/> 
-				  </td>
-				</tr>
-			  </table>
-			</form>
-			
-	    </div>
 
-      	<div id="aclist" class="form-group" style="width: 650px;">
-      		<h2 class="text-center">Access Control List</h2>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Third-party </th>
-                  <th scope="col">Permissions </th>
-                  <th scope="col">Token Info. </th>
-                </tr>
-              </thead>
-              <tbody id="aclinfo"></tbody>
-            </table>
-            <hr/>
-        </div>
-        
-      	<div id="grantaccess" class="form-group" style="width: 650px;">
-			<form onSubmit="App.grantAccess(); return false;">
-			  <div class="data-info">
-				  <table class="table">
-				  <thead>
-				    <tr>
-				      <th scope="col">#</th>
-				      <th scope="col">Third-Party Address</th>
-				      <th scope="col"><input type="text" id="tpaddress"></th>
-				    </tr>
-				    <tr>
-				      <th scope="col">#</th>
-				      <th scope="col">Permissions</th>				      
-				      <th scope="col">
-				      	  <select class="form-control" id="permissionSelect" multiple>
-						  	<option value=1>Create</option>
-						  	<option value=2>Read</option>
-						  	<option value=4>Update</option>
- 						  	<option value=8>Delete</option>
-						  </select>			      
-				      </th>
-				    </tr>
-				  </thead>
-				  </table>
-			  </div>
-			  <button type="submit" class="btn btn-primary">Grant Access</button>
-			  <hr />
-			</form>
-	    </div>    
+  <body>
+    <header>
+      <img width=700 type="image/png" src="assets/full-logo.png" alt="PDMPB"/>
+    </header>
+    <main>
+    <div class="box">
+      <h2>Your connection</h2>
+      <div>
+        <h3>
+          ETH Address: <span style="font-weight:normal" id="address">Log in to MetaMask to show your address</span><br>
+          Contract Address: <span style="font-weight:normal" id="contAdd"></span><br>
+          IPFS Node ID: <span style="font-weight:normal" id="nodeId"></span>
+        </h3>
       </div>
-      
-	  <div>
-		<form onSubmit="App.tokenInfo(); return false;">
-		  <div>
-			  <table class="table">
-			  <thead>
-				<tr>
-				  <th scope="col">#</th>
-				  <th scope="col">Token:</th>              
-				  <th scope="col"><input type="text" id="actoken"></th>
-				  <th scope="col"><button type="submit" class="btn btn-primary">Get Info</button></th>
-				</tr>
-			  </thead>
-			  </table>
-			  
-			  <table class="table">
-			      <thead>
-			        <tr>
-			          <th scope="col">Third-party ID</th>
-			          <th scope="col">Requested Permissions</th>
-			          <th scope="col">Issued at</th>
-			          <th scope="col">Expire in</th>
-			          <th scope="col">Refresh Count</th>
-			          <th scope="col">Validity</th>				          
-			        </tr>
-			      </thead>
-			      <tbody id="tokenInfo"></tbody>
-	        </table>			  
-		  </div>
-		  <hr />
-		</form>
-	  </div>
-            
     </div>
-    
-     <script>
-	   //form Submit
-	   $("form").submit(function(evt){	 
-		  evt.preventDefault();
-		  var formData = new FormData($(this)[0]);
-	   $.ajax({
-		   url: 'fileUpload',
-		   type: 'POST',
-		   data: formData,
-		   async: false,
-		   cache: false,
-		   contentType: false,
-		   enctype: 'multipart/form-data',
-		   processData: false,
-		   success: function (response) {
-		     alert(response);
-		   }
-	   });
-	   return false;
-	 });
-	</script>
+    <div class="box">
+      <h2>Add personal data</h2>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/web3.min.js"></script>
-    <script src="js/truffle-contract.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/utils.js"></script>
-    <script type="text/javascript" src="js/setUp.js"></script>
-    <script type="text/javascript" src="js/addData.js"></script>
-    <script type="text/javascript" src="js/accessControl.js"></script>
-    <script type="text/javascript" src="js/getData.js"></script>
-	  
+      <div class="col-container">
+        <div id="usr" class="box col">
+
+          <h3>USER</h3>
+          <form id="useradd_form">
+            Select a file:<br>
+            <input type="file" id="useradd_file"><br>
+          </form>
+          <button type="button" id="useraddbutton">Add</button>
+
+        </div>
+
+        <div id="sp" class="box col">
+          <h3>SERVICE PROVIDER</h3>
+          <form id="spadd_form">
+            User ETH address:<br>
+            <input type="text" id="user_eth_address"><br>
+            Select a file:<br>
+            <input type="file" id="spadd_file"><br>
+          </form>
+          <button type="button" id="spadduserdatabutton">Add</button>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="box row">
+      <h2>Your personal data</h2>
+      <table>
+            <thead>
+              <tr>
+                <th>File ID</th>
+              </tr>
+            </thead>
+            <tbody id="myDataloc">
+              <tr id="empty-row">
+                <td colspan="4">You don't have any data.</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <div class="box">
+      <h2>Access Control</h2>
+
+      <div class="col-container">
+        <div id="grant" class="box col">
+
+          <h3>GRANT ACCESS</h3>
+          <form id="grant_form">
+            File ID:<br>
+            <input type="text" id="grant_cid"><br>
+            ETH address:<br>
+            <input type="text" id="grant_eth"><br>
+            Permission type:<br>
+            <select id="grant_policy">
+              <option value="0">Create</option>
+              <option value="1">Read</option>
+              <option value="2">Update</option>
+              <option value="3">Delete</option>
+            </select><br>
+          </form>
+          <button type="button" id="grant_button">OK</button>
+
+        </div>
+
+        <div id="revoke" class="box col">
+          <h3>REVOKE ACCESS</h3>
+          <form id="revoke_form">
+            File ID:<br>
+            <input type="text" id="revoke_cid"><br>
+            ETH address:<br>
+            <input type="text" id="revoke_eth"><br>
+            Permission type:<br>
+            <select id="revoke_policy">
+              <option value="0">Create</option>
+              <option value="1">Read</option>
+              <option value="2">Update</option>
+              <option value="3">Delete</option>
+            </select><br>
+          </form>
+          <button type="button" id="revoke_button">OK</button>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="box row">
+      <h2>Request a token</h2>
+      Enter a file ID:
+      <div class="col-container">
+        <form id="token_form">
+        <input type="text" id="user_getdata" style="width:100%;"><br>
+        Permission type:<br>
+        <select id="token_policy">
+          <option value="0">Create</option>
+          <option value="1">Read</option>
+          <option value="2">Update</option>
+          <option value="3">Delete</option>
+        </select><br>
+        <button type="button" id="getdata_button" style="width: 100%">Get</button>
+        </form>
+      </div>
+      <table>
+            <thead>
+              <tr>
+                <th>Token</th>
+              </tr>
+            </thead>
+            <tbody id="myTokenLoc">
+              <tr id="empty-row-token">
+                <td colspan="4">Enter a file ID to request a token.</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <div class="box row">
+      <h2>Use token</h2>
+      <form id="redeem_form">
+        File ID:<br>
+        <input type="text" id="redeem_fileID" style="width: 100%"><br>
+        Token:<br>
+        <input type="text" id="redeem_token" style="width: 100%"><br>
+      </form>
+      <button type="button" id="redeem_button">Get Data</button>
+
+      <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>File ID</th>
+                <th>Size</th>
+              </tr>
+            </thead>
+            <tbody id="getDataloc">
+              <tr id="empty-row-get">
+                <td colspan="4" id="error-loc-get">Use a token to download the files.</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+  </main>
   </body>
+
+  <script type="text/javascript" src="./javascript/setUp.js"></script>
+  <script type="text/javascript" src="./javascript/addData.js"></script>
+  <script type="text/javascript" src="./javascript/accessControl.js"></script>
+  <script type="text/javascript" src="./javascript/getData.js"></script>
+
 </html>

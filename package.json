@@ -1,0 +1,24 @@
+{
+  "name": "tfeltin.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tfeltin/tfeltin.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tfeltin/tfeltin.github.io/issues"
+  },
+  "homepage": "https://github.com/tfeltin/tfeltin.github.io#readme",
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "openpgp": "^4.5.5",
+    "web3": "github:ethereum/web3.js"
+  }
+}
