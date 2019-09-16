@@ -260,7 +260,6 @@ document.getElementById('contractAddr').innerHTML = contractAddress;
 const cont = window.web3.eth.contract(abi);
 const contract = cont.at(contractAddress);
 
-
 async function setup(){
   // setup web3 and connect to MetaMask
   if (typeof web3 !== 'undefined') {
@@ -276,3 +275,4 @@ async function setup(){
 }
 
 setup();
+

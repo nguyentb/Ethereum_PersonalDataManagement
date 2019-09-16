@@ -19,8 +19,8 @@ function uploadData() {
                     var linkText = document.createTextNode("Successfully added file.");
                     a.appendChild(linkText);
                     a.style.color = 'green';
-                    //document.getElementById("useradd_form").appendChild(a);
-                    //document.getElementById("useradd_form").reset();
+                    document.getElementById("accountAddress").appendChild(a);
+                    document.getElementById("accountAddress").reset();
                   } else {
                     console.log("Error in transaction");
                     console.log(error);
@@ -33,8 +33,7 @@ function uploadData() {
       } else {
         console.log(e);
       }
-	});
-    
+	});    
 }
 
 /*
