@@ -267,16 +267,7 @@ async function setup(){
 	web3 = new Web3(web3.currentProvider);
 	await ethereum.enable();
 	web3.eth.defaultAccount = web3.eth.accounts[0];
-	document.getElementById('accountAddress').innerHTML = web3.eth.defaultAccount;
-	contract.getMyData.call((e,myData) => {
-	  if (!e){
-				for (i=0;i<myData.length;i++){
-					downloadableFile(myData[i]);
-	    }
-			} else {
-				console.log(e);
-			}
-		});
+	document.getElementById('accountAddress').innerHTML = web3.eth.defaultAccount;	
   } else {
 	web3 = new Web3(new Web3.providers.HttpProvider("rinkeby.infura.io/v3/9450959fb7da4c1e9f880f577685d095"));
   }
