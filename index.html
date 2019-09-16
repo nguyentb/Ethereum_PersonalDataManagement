@@ -167,29 +167,7 @@
 		</form>
 	  </div>
             
-    </div>
-    
-     <script>
-	   //form Submit
-	   $("form").submit(function(evt){	 
-		  evt.preventDefault();
-		  var formData = new FormData($(this)[0]);
-	   $.ajax({
-		   url: 'fileUpload',
-		   type: 'POST',
-		   data: formData,
-		   async: false,
-		   cache: false,
-		   contentType: false,
-		   enctype: 'multipart/form-data',
-		   processData: false,
-		   success: function (response) {
-		     alert(response);
-		   }
-	   });
-	   return false;
-	 });
-	</script>
+    </div>       
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery.min.js"></script>

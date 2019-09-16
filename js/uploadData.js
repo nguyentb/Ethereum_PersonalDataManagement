@@ -6,6 +6,7 @@ function uploadData() {
     web3.eth.getGasPrice((e, gasPrice) => {
       if (!e) {
         gasPrice = gasPrice.c[0];
+        
         contract.uploadData.estimateGas({from: web3.eth.defaultAccount}, dpointer, dhash, (er, gas) => {
           if (!er) {
             tx = {

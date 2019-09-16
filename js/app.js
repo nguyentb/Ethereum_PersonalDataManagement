@@ -252,7 +252,7 @@ const abi = [
 }
 ];
 
-const contractAddress = "0x9774A0A9A7CDbe862b231adA8887b4a0045A7894".toLowerCase();
+const contractAddress = "0x67620BE95159De2Ed1efDcda27d12bb0e91ba964".toLowerCase();
 
 document.getElementById('contractAddr').innerHTML = contractAddress;
 //const $myDataloc = document.querySelector('#myDataloc');
