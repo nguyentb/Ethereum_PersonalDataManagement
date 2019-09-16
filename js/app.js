@@ -252,9 +252,42 @@ const abi = [
     }
   ];
 
+const contractAddress = "0x9774A0A9A7CDbe862b231adA8887b4a0045A7894".toLowerCase();
+
+document.getElementById('contractAddr').innerHTML = contractAddress;
+//const $myDataloc = document.querySelector('#myDataloc');
+
+const cont = window.web3.eth.contract(abi);
+const contract = cont.at(contractAddress);
+
+
+async function setup(){
+  // setup web3 and connect to MetaMask
+  if (typeof web3 !== 'undefined') {
+    web3 = new Web3(web3.currentProvider);
+    await ethereum.enable();
+    web3.eth.defaultAccount = web3.eth.accounts[0];
+    document.getElementById('address').innerHTML = web3.eth.defaultAccount;
+    contract.getMyData.call((e,myData) => {
+      if (!e){
+				for (i=0;i<myData.length;i++){
+					downloadableFile(myData[i]);
+        }
+			}else{
+				console.log(e);
+			}
+		});
+  } else {
+    web3 = new Web3(new Web3.providers.HttpProvider("rinkeby.infura.io/v3/9450959fb7da4c1e9f880f577685d095"));
+  }
+
+}
+
+setup();
+
 
 App = {
-  web3Provider: null,
+  web3Provider: new Web3.providers.HttpProvider('rinkeby.infura.io/v3/9450959fb7da4c1e9f880f577685d095'),
   contracts: "0x9774A0A9A7CDbe862b231adA8887b4a0045A7894".toLowerCase(),
   account: '0x0',
 
