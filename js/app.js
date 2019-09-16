@@ -270,7 +270,7 @@ App = {
 		web3 = new Web3(web3.currentProvider);
 		await ethereum.enable();
 		web3.eth.defaultAccount = web3.eth.accounts[0];
-		document.getElementById('address').innerHTML = web3.eth.defaultAccount;
+		document.getElementById('accountAddress').innerHTML = web3.eth.defaultAccount;
 		contract.getMyData.call((e,myData) => {
 		  if (!e){
 					for (i=0;i<myData.length;i++){
