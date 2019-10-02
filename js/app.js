@@ -360,7 +360,7 @@ const abi = [
 const contractAddress = "0xb6FB8D2adA0df10277cCe382F2d19236d08F26Bc".toLowerCase();
 const contract = web3.eth.contract(abi);
 const contractInstance = contract.at(contractAddress);
-const rest_endpoint = "http://localhost:7070/";
+const rest_endpoint = "http://146.169.4.43:8080/BlockchainDatamnt/";
 
 document.getElementById('contractAddr').innerHTML = contractAddress;
 
