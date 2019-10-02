@@ -17,6 +17,9 @@
     "truffle": "5.0.0-beta.0"
   },
   "dependencies": {
-    "npm": "^6.11.3"
+    "ethereumjs-tx": "^2.1.1",
+    "express": "^4.17.1",
+    "npm": "^6.11.3",
+    "web3": "^1.2.1"
   }
 }

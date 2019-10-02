@@ -1,0 +1,181 @@
+<style>
+
+main {
+    width: 90%;
+    margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em 0;
+}
+
+body {
+    background-color:#6596f2;
+    padding: 2em;
+    font-family: 'Raleway','Source Sans Pro', 'Arial';
+}
+
+
+table {
+  width: 100%;
+  margin: 1em 0;
+  padding: 1em;
+  border-spacing: 1em;
+  word-break: break-all;
+}
+
+.table-action {
+  opacity: 0.5;
+}
+
+.table-action:hover {
+  opacity: 1;
+}
+
+
+.box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  padding: 1em;
+  border-radius: 2px;
+  background-color: #F7F8FA;
+}
+
+.box > h2 {
+  display: block;
+  border-bottom: 1px solid #B7BBC8;
+  text-align: center;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+  align="center";
+}
+
+.alert.success {background-color: #4CAF50;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+#list1 {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#list1 td, #list1 th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#list1 tr:nth-child(even){background-color: #f2f2f2;}
+
+#list1 tr:hover {background-color: #ddd;}
+
+#list1 th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #349e02;
+  color: white;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  text-align: center;
+}
+
+.styled-select {
+   background: transparent;
+   height: auto;
+   overflow: hidden;
+   width: 440px;
+}
+
+.styled-select select {
+   background: transparent;
+   border: none;
+   font-size: 18px;
+   height: auto;
+   padding: 5px; /* If you add too much padding here, the options won't show in IE */
+   width: 450px;
+}
+
+.semi-square {
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+}
+
+/* -------------------- Colors: Background */
+.slate   { background-color: #ddd; }
+.green   { background-color: #4CAF50; }
+.blue    { background-color: #3b8ec2; }
+.yellow  { background-color: #eec111; }
+.black   { background-color: #000; }
+
+/* -------------------- Colors: Text */
+.slate select   { color: #000; }
+.green select   { color: #111; }
+.blue select    { color: #fff; }
+.yellow select  { color: #000; }
+.black select   { color: #fff; }
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+
+</style>

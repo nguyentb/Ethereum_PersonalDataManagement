@@ -2,18 +2,18 @@ pragma solidity >=0.4.25;
 
 contract DataManagement {
     
-  struct AuthLedger {
+	struct AuthLedger {
 		string dataPointer;
 		string dataHash;
 		uint8 flag;
-  }
+	}
 
 	struct Dataset {
 		uint datasetId;
 		address owner;
 		address sp;
 		string dataPointer;
-  }
+	}
 
 	struct Acl {
 		uint8 permission;
@@ -30,29 +30,35 @@ contract DataManagement {
 		uint expired_in;
 		uint refresh_count;
 		bool validity;
-  }
-
-  /* We consider only one Service provider, thus there is no need to add SP's Id */
+	}
+	
+	/* We consider only one Service provider, thus there is no need to add SP's Id */
 
     //mapping access control list for data owners
     mapping(address => mapping(address => Acl)) public aclists;
 		
-		//mapping AccessToken for data owners
-		mapping(bytes32 => AccessToken) public tokenlist;
+	//mapping AccessToken for data owners
+	mapping(bytes32 => AccessToken) public tokenlist;
 
     // Auth_ledger
     mapping(address => AuthLedger) public auth_ledger;
 
-		// Access Control List Keeper for keep track of granted third-parties
-		//mapping(address => AclKeeper) public acl_keeper;
-		mapping(address => address[]) public acl_keeper;
-		mapping(address => uint) public acl_keeper_count;
+	// Access Control List Keeper for keep track of granted third-parties
+	//mapping(address => AclKeeper) public acl_keeper;
+	mapping(address => address[]) public acl_keeper;
+	mapping(address => uint) public acl_keeper_count;
+	
+	//AccessRequest mapping shows a list of requesters with associated requested permissions corresponding to an data owner ID
+	mapping(address => mapping(address => uint8)) public requestlist;
+	mapping(address => uint) public request_list_count;
+	mapping(address => address[]) public request_list_keeper;
+	
 
     // Token_ledger
     // mapping(string => AccessToken) public token_ledger;
 
-		uint public blockNumber;
-		bytes32 public blockHashNow;
+	uint public blockNumber;
+	bytes32 public blockHashNow;
 
     // Upload Data event
     event uploadDataEvent (
@@ -61,30 +67,30 @@ contract DataManagement {
 			string _dataHash
     );
 
-		event grantAccessEvent(
-			bytes32 token
-		);
+	event grantAccessEvent(
+		bytes32 token
+	);
 
     constructor () public {
     }
 
-  function uploadData (address _owner, string _dataPointer, string _dataHash) public {
+  	function uploadData (address _owner, string memory _dataPointer, string memory _dataHash) public {
 		require(msg.sender == _owner);
 
 		if(auth_ledger[_owner].flag == 1) { //owner has previously uploaded data
 	    //update the ledger
 	    auth_ledger[_owner].dataPointer = _dataPointer;
 	    auth_ledger[_owner].dataHash = _dataHash;
-		} else {
-			//initiate the Access Control List
+		} else { //owner firstly upload data
+		//initiate the Access Control List
 	    //aclists[msg.sender][msg.sender] = Acl(16, ); //provide all permissions to the data owner
-			//token = keccak256(abi.encodePacked(_owner, _thirdparty, blockHashNow));
+		//token = keccak256(abi.encodePacked(_owner, _thirdparty, blockHashNow));
 
 	    auth_ledger[_owner] = AuthLedger(_dataPointer, _dataHash, 1);
 		}
 		//trigger uploadData event
 		emit uploadDataEvent(_owner, _dataPointer, _dataHash);
-  }
+  	}
 
 	function grantAccess (address _owner, address _thirdparty, uint8 _permission) public {
 		require(msg.sender == _owner);
@@ -124,6 +130,11 @@ contract DataManagement {
 			//create aclists record
 			aclists[_owner][_thirdparty] = Acl(_permission, token);
 		}
+		
+		if (requestlist[_owner][_thirdparty] > 0) {
+			//the request has been fulfilled
+			requestlist[_owner][_thirdparty] = 99;
+		}
 
 		//create or update permission
 		//aclists[_owner][_thirdparty] = _permission;
@@ -134,5 +145,24 @@ contract DataManagement {
 		require(msg.sender == _callerId);
 		require(tokenlist[_token].validity == true);
 
+	}
+	
+	function requestAccess(address _requester, address _owner, uint8 _permission) public {
+		require(msg.sender == _requester);
+		require(auth_ledger[_owner].flag == 1); //owner should have already uploaded data
+		
+		if (requestlist[_owner][_requester] > 0) { //requester has been requested permission before
+			//do nothing
+		} else { // new request
+			if (request_list_count[_owner] > 0) {
+				request_list_keeper[_owner].push(_requester);		
+				request_list_count[_owner] ++ ;
+			} else {
+				request_list_keeper[_owner].push(_requester);		
+				request_list_count[_owner] = 1; //first request for the data owner
+			}
+		}
+		//update the requestlist
+		requestlist[_owner][_requester] = _permission;
 	}
 }

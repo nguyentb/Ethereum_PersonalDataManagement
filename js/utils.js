@@ -1,3 +1,13 @@
+async function sign_message(message) {
+    var message_hash = web3.eth.accounts.hashMessage(message);
+    var accounts = await web3.eth.getAccounts();
+    var signature = await web3.eth.personal.sign(message, accounts[0]);
+    
+    console.log(signature);
+    return signature;
+}
+
+
 var isAddress = function (address) {
     if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
         // check if it has the basic requirements of an address
@@ -54,7 +64,7 @@ var convertPermission = function (permission) {
 	var ret = "";
 	switch (parseInt(permission)) {
 		case 0:
-			ret = "NO PERMISSION"
+			ret = "PERMISSION REVOKED"
 			break;
 		case 1:
 			ret = "CREATE"
