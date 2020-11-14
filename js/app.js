@@ -1,3 +1,4 @@
+// declare the abi of the smart contract that the app is going to interact with.
 const abi = [
     {
       "constant": true,
@@ -357,9 +358,12 @@ const abi = [
     }
 ];
 
+
+// setup environment to interact with the smart contract
 const contractAddress = "0xb6FB8D2adA0df10277cCe382F2d19236d08F26Bc".toLowerCase();
 const contract = web3.eth.contract(abi);
 const contractInstance = contract.at(contractAddress);
+// setup connection to the resource server
 const rest_endpoint = "http://146.169.4.43:8080/BlockchainDatamnt/";
 
 document.getElementById('contractAddr').innerHTML = contractAddress;
@@ -464,7 +468,7 @@ async function pageRender(){
 	});
 	
   } else {
-	web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/9450959fb7da4c1e9f880f577685d095"));
+	  web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/9450959fb7da4c1e9f880f577685d095"));
   }
 }
 
