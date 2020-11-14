@@ -12,7 +12,7 @@ Install these prerequisites to follow along with the Personal data management sy
 
 
 ## Step 1. Clone the project
-`git clone https://github.com/nguyentb/Personal-data-management`
+`git clone git-remote-URL`
 
 ## Step 2. Go to Ethereum folder, Install dependencies
 ```
